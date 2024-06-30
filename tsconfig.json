@@ -9,6 +9,7 @@
     "sourceMap": true,
     "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,
+    "rootDir": "./",
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -24,6 +25,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["frontend/src"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["frontend/src", "backend/"],
 }
