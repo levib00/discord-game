@@ -1,10 +1,12 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
+    "moduleResolution": "node",
     "allowImportingTsExtensions": false,
     "rootDir": "../",
     "noEmit": false,
-    "composite": true
+    "composite": true,
+    "module": "CommonJS", 
   },
   "include": ["./"],
 }
