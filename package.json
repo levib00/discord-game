@@ -10,7 +10,9 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "test": "jest --coverage",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "test-backend": "cd frontend && npm run test",
+    "test-frontend": "cd backend && npm run test"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.9.3",
