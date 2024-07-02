@@ -4,7 +4,8 @@
     "allowImportingTsExtensions": true,
     "rootDir": "../",
     "composite": true,
-    "noEmit": true
+    "noEmit": true,
+    "types": ["node", "jest", "@testing-library/jest-dom"],
   },
   "include": ["./src"],
 }

@@ -10,6 +10,10 @@
     "outDir": "./dist",
     "forceConsistentCasingInFileNames": true,
     "rootDir": "./",
+    "types": [
+      "jest",
+      "node"
+    ],
 
     /* Bundler mode */
     "moduleResolution": "bundler",
