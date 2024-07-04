@@ -30,4 +30,5 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": ["frontend/src", "backend/"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }
