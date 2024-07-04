@@ -1,17 +1,22 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
-import GameScreen from '../components/game-screen';
+import Target from '../components/target';
 
-describe('GameScreen renders', () => {
+const target = {
+  xCoords: 250,
+  yCoords: 250
+}
+
+describe('Target renders', () => {
   test('Target renders with correct text', () => {
     render(
       <MemoryRouter>
-        <GameScreen />
+        <Target target={target}/>
       </MemoryRouter>,
     );
 
-    const gameScreenTitle = screen.getByTestId('game-screen');
-    expect(gameScreenTitle).toBeInTheDocument();
+    const targetId = screen.getByTestId('target');
+    expect(targetId).toBeInTheDocument();
   });
 });
