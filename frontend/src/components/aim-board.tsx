@@ -1,4 +1,5 @@
 import Target from './target';
+import { v4 as uuidv4 } from 'uuid';
 
 interface test {
   xCoords: number,
@@ -14,8 +15,8 @@ interface IAimBoardProps {
 const AimBoard = (props: IAimBoardProps) => {
   const { targets } = props
   return (
-    <div>
-      {targets.map(target => <Target target={ target } />)}
+    <div data-testid="aim-board">
+      {targets?.map(target => <Target key={uuidv4()} target={ target } />)}
     </div>
   );
 }
