@@ -29,6 +29,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["frontend/src", "backend/"],
+  "include": ["frontend/src", "backend/", "./.eslintrc.cjs"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
