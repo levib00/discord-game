@@ -5,8 +5,8 @@ import AimBoard from '../components/aim-board';
 
 const targets = [{
   xCoords: 250,
-  yCoords: 250
-}]
+  yCoords: 250,
+}];
 
 describe('AimBoard renders', () => {
   test('About renders with correct text', () => {

@@ -5,8 +5,8 @@ import Target from '../components/target';
 
 const target = {
   xCoords: 250,
-  yCoords: 250
-}
+  yCoords: 250,
+};
 
 describe('Target renders', () => {
   test('Target renders with correct text', () => {

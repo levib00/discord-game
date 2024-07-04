@@ -8,7 +8,7 @@ module.exports = {
   extends: [
     'airbnb-base',
     'airbnb-typescript',
-    "plugin:import/typescript"
+    'plugin:import/typescript',
   ],
   overrides: [
     {
@@ -32,13 +32,13 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
     },
-    project: "./tsconfig.json"
+    project: './tsconfig.json',
   },
   plugins: [
-    "@typescript-eslint",
-    "react",
+    '@typescript-eslint',
+    'react',
   ],
   ignores: ["./vite.config.ts"]
 };

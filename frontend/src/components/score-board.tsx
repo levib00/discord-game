@@ -4,7 +4,7 @@ interface IScoreBoard {
 }
 
 const ScoreBoard = (props: IScoreBoard) => {
-  const { player1Score, player2Score } = props
+  const { player1Score, player2Score } = props;
 
   return (
     <div>
@@ -16,6 +16,6 @@ const ScoreBoard = (props: IScoreBoard) => {
       </div>
     </div>
   );
-}
+};
 
 export default ScoreBoard;

@@ -1,4 +1,3 @@
-import Target from './target';
 import { v4 as uuidv4 } from 'uuid';
 import Target from './target';
 
@@ -10,16 +9,16 @@ interface ICoordinates {
 // TODO: only allowing undefined targets for prototyping remove later if not needed.
 
 interface IAimBoardProps {
-  targets?: test[]
+  targets?: ICoordinates[]
 }
 
 const AimBoard = (props: IAimBoardProps) => {
-  const { targets } = props
+  const { targets } = props;
   return (
     <div data-testid="aim-board">
-      {targets?.map(target => <Target key={uuidv4()} target={ target } />)}
+      {targets?.map((target) => <Target key={uuidv4()} target={ target } />)}
     </div>
   );
-}
+};
 
 export default AimBoard;

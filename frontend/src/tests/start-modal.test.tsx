@@ -11,7 +11,7 @@ describe('Start Modal renders', () => {
       </MemoryRouter>,
     );
 
-    const readyButton = screen.getByRole('button', {name: 'Ready!'});
+    const readyButton = screen.getByRole('button', { name: 'Ready!' });
     expect(readyButton).toBeInTheDocument();
   });
 });
