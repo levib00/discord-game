@@ -1,7 +1,8 @@
 import Target from './target';
 import { v4 as uuidv4 } from 'uuid';
+import Target from './target';
 
-interface test {
+interface ICoordinates {
   xCoords: number,
   yCoords: number
 }
