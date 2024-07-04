@@ -40,8 +40,5 @@ module.exports = {
     "@typescript-eslint",
     "react",
   ],
-  rules: {
-    "no-underscore-dangle" : 0
-  },
   ignores: ["./vite.config.ts"]
 };
