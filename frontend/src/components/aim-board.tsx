@@ -1,12 +1,14 @@
-import Target from './target'
+import Target from './target';
 
 interface test {
   xCoords: number,
   yCoords: number
 }
 
+// TODO: only allowing undefined targets for prototyping remove later if not needed.
+
 interface IAimBoardProps {
-  targets: test[]
+  targets?: test[]
 }
 
 const AimBoard = (props: IAimBoardProps) => {
