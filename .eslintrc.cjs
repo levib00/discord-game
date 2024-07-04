@@ -20,8 +20,8 @@ module.exports = {
         '.eslintrc.{js,cjs,ts,tsx}',
         '**/*.spec.js',
         '**/*.spec.jsx',
-        '*/.ts',
-        '*/.tsx',
+        '**/.ts',
+        '**/.tsx',
       ],
       parserOptions: {
         sourceType: 'script',
