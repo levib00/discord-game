@@ -40,5 +40,4 @@ module.exports = {
     '@typescript-eslint',
     'react',
   ],
-  ignores: ["./vite.config.ts"]
 };
