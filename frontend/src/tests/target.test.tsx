@@ -12,7 +12,12 @@ describe('Target renders', () => {
   test('Target renders with correct text', () => {
     render(
       <MemoryRouter>
-        <Target target={target}/>
+        <Target
+        target={target}
+        setCurrentTargets={jest.fn()}
+        index={0}
+        currentTargets={[]}
+        targetClicked={jest.fn()}/>
       </MemoryRouter>,
     );
 
