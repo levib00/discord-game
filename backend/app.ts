@@ -8,6 +8,7 @@ import cors from 'cors';
 
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
+import gameRouter from './routes/game';
 
 require('dotenv').config();
 
@@ -32,8 +33,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/api/', indexRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/game', gameRouter);
 
 // catch 404 and forward to error handler
 app.use((_req: Request, _res: Response, next: NextFunction) => {
