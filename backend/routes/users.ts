@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import gameController from '../controllers/game';
 
 const router = express.Router();
 
@@ -7,7 +6,5 @@ const router = express.Router();
 router.get('/', (_req: Request, res: Response) => {
   res.send('respond with a resource');
 });
-
-router.get('/test', gameController);
 
 export default router;
