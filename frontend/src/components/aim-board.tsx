@@ -6,14 +6,49 @@ interface IAimBoardProps {
   targets: ICoordinates[]
 }
 
-// TODO: only allowing undefined targets for prototyping remove later if not needed.
+let score: number = 1000;
 
-interface IAimBoardProps {
-  targets?: ICoordinates[]
-}
+let startTimeMS = 0;
+let timerId: ReturnType<typeof setTimeout>;
+const timerStep = 1000;
 
 const AimBoard = (props: IAimBoardProps) => {
   const { targets } = props;
+
+  function startTimer() {
+    startTimeMS = (new Date()).getTime();
+    timerId = setTimeout(() => {}, timerStep);
+  }
+
+  function getRemainingTime() {
+    return timerStep - ((new Date()).getTime() - startTimeMS);
+  }
+
+  const restartTimer = () => {
+    clearTimeout(timerId);
+    startTimer();
+  };
+
+  const sendScore = async (url: string, newScore: number) => {
+    await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify(newScore),
+      credentials: 'include',
+      // @ts-ignore
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': 'https://levib00.github.io',
+      },
+      mode: 'cors',
+    });
+  };
+
+  const targetClicked = () => {
+    score = getRemainingTime() + 100;
+    sendScore('', score);
+    restartTimer();
+  };
 
   const [currentTargets, setCurrentTargets] = useState<ICoordinates[]>(targets || []);
 
@@ -26,6 +61,7 @@ const AimBoard = (props: IAimBoardProps) => {
         currentTargets={ currentTargets }
         setCurrentTargets={ setCurrentTargets }
         index={ index }
+        targetClicked={targetClicked}/>,
       )}
     </div>
   );
