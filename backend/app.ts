@@ -5,12 +5,11 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import { neon } from '@neondatabase/serverless';
 import cors from 'cors';
+import 'dotenv/config';
 
 import indexRouter from './routes/index';
 import usersRouter from './routes/users';
 import gameRouter from './routes/game';
-
-require('dotenv').config();
 
 const app = express();
 
