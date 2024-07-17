@@ -11,7 +11,6 @@ const GameScreen = () => {
       try {
         const data = await fetch(url, {
           method: 'GET',
-          // @ts-ignore
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
