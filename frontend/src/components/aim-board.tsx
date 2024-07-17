@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import Target, { ICoordinates } from './target';
+import socketio from '../socketio';
 
 interface IAimBoardProps {
   targets: ICoordinates[]
@@ -29,23 +30,16 @@ const AimBoard = (props: IAimBoardProps) => {
     startTimer();
   };
 
-  const sendScore = async (url: string, newScore: number) => {
-    await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify(newScore),
-      credentials: 'include',
-      // @ts-ignore
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': 'https://levib00.github.io',
-      },
-      mode: 'cors',
-    });
+  const sendScore = async (_url: string, newScore: number) => {
+    socketio.emit('message', newScore);
   };
 
   const targetClicked = () => {
-    score = getRemainingTime() + 100;
+    score = getRemainingTime();
+    if (score < 1) {
+      score = 0;
+    }
+    score += 100;
     sendScore('', score);
     restartTimer();
   };
