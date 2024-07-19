@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import GameScreen from './components/game-screen';
+import Nav from './components/nav';
+import Home from './components/home';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState<string>('true');
@@ -15,15 +17,17 @@ function App() {
 
   return (
     <div className={isDarkMode ? 'top-container dark-mode' : 'top-container'}>
-      <MemoryRouter>
+      <BrowserRouter>
         <header>
+          <Nav />
         </header>
         <main className='main'>
           <Routes>
-            <Route path='/' element={<GameScreen />} />
+            <Route path='/' element={<Home />} />
+            <Route path='/challenge/:lobbyId' element={<GameScreen />} />
           </Routes>
         </main>
-      </MemoryRouter>
+      </BrowserRouter>
     </div>
   );
 }
