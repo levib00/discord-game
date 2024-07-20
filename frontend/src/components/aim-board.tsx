@@ -15,6 +15,7 @@ const timerStep = 1000;
 
 const AimBoard = (props: IAimBoardProps) => {
   const { targets } = props;
+  const [jwt] = useState(localStorage.getItem('jwt') || '');
 
   function startTimer() {
     startTimeMS = (new Date()).getTime();
@@ -30,8 +31,8 @@ const AimBoard = (props: IAimBoardProps) => {
     startTimer();
   };
 
-  const sendScore = async (_url: string, newScore: number) => {
-    socketio.emit('message', newScore);
+  const sendScore = async (newScore: number, authJwt: string) => {
+    socketio.emit('score', { newScore, jwt: authJwt });
   };
 
   const targetClicked = () => {
@@ -40,7 +41,7 @@ const AimBoard = (props: IAimBoardProps) => {
       score = 0;
     }
     score += 100;
-    sendScore('', score);
+    sendScore(score, jwt || '');
     restartTimer();
   };
 
