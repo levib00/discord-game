@@ -5,6 +5,7 @@ import StartModal from './start-modal';
 
 const GameScreen = () => {
   const [targets, setTargets] = useState([]);
+  const [score, setScore] = useState(0);
 
   useEffect(() => {
     const getFetcher = async (url: string) => {
@@ -31,9 +32,9 @@ const GameScreen = () => {
 
   return (
     <div data-testid='game-screen'>
-      <ScoreBoard player1Score={0} player2Score={0}/>
+      <ScoreBoard player1Score={score} player2Score={0}/>
       <StartModal />
-      {targets?.length > 0 && <AimBoard targets={targets}/>}
+      {targets?.length > 0 && <AimBoard targets={targets} setScore={setScore} score={score}/>}
     </div>
   );
 };
