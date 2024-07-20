@@ -5,16 +5,18 @@ import socketio from '../socketio';
 
 interface IAimBoardProps {
   targets: ICoordinates[]
+  setScore: any
+  score: number
 }
 
-let score: number = 1000;
+let targetScore: number = 1000;
 
 let startTimeMS = 0;
 let timerId: ReturnType<typeof setTimeout>;
 const timerStep = 1000;
 
 const AimBoard = (props: IAimBoardProps) => {
-  const { targets } = props;
+  const { targets, setScore, score } = props;
   const [jwt] = useState(localStorage.getItem('jwt') || '');
 
   function startTimer() {
@@ -36,13 +38,14 @@ const AimBoard = (props: IAimBoardProps) => {
   };
 
   const targetClicked = () => {
-    score = getRemainingTime();
-    if (score < 1) {
-      score = 0;
-    }
-    score += 100;
-    sendScore(score, jwt || '');
+    targetScore = getRemainingTime();
     restartTimer();
+    if (score < 1) {
+      targetScore = 0;
+    }
+    targetScore += 100;
+    sendScore(score, jwt || '');
+    setScore(score + targetScore);
   };
 
   const [currentTargets, setCurrentTargets] = useState<ICoordinates[]>(targets || []);
