@@ -1,7 +1,9 @@
 import asyncHandler from 'express-async-handler';
+import { v4 as uuid } from 'uuid';
 import { Request, Response } from 'express';
 
-// eslint-disable-next-line import/prefer-default-export
+const socketio = require('../src/socketio');
+
 export const getTargets = asyncHandler(async (_req: Request, res: Response) => {
   const generateTargets = () => {
     const coordsArray = [];
@@ -21,4 +23,15 @@ export const getTargets = asyncHandler(async (_req: Request, res: Response) => {
   };
 
   res.json(generateTargets());
+});
+
+export const getChallengeLink = asyncHandler(async (_req: Request, res: Response) => {
+  const link = uuid();
+  const nsp = socketio.io.of(`/${link}`);
+
+  nsp.on('connection', (socket: any) => {
+    console.log('someone connected', socket.id);
+  });
+
+  res.json(`${link}`);
 });
