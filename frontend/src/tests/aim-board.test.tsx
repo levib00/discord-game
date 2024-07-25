@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
+import { io } from 'socket.io-client';
 import AimBoard from '../components/aim-board';
 
 const targets = [{
@@ -12,7 +13,7 @@ describe('AimBoard renders', () => {
   test('About renders with correct text', () => {
     render(
       <MemoryRouter>
-        <AimBoard targets={targets} />
+        <AimBoard targets={targets} score={0} lobbyNsp={io()} setScore={jest.fn()}/>
       </MemoryRouter>,
     );
 
