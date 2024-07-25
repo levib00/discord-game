@@ -27,10 +27,27 @@ export const getTargets = asyncHandler(async (_req: Request, res: Response) => {
 
 export const getChallengeLink = asyncHandler(async (_req: Request, res: Response) => {
   const link = uuid();
-  const nsp = socketio.io.of(`/${link}`);
+  const lobby = socketio.io.of(`/${link}`);
 
-  nsp.on('connection', (socket: any) => {
-    console.log('someone connected', socket.id);
+  let player1Score = 0;
+  let player2Score = 0;
+
+  lobby.on('connection', (socket: any) => {
+    console.log('someone connected to namespace', socket.id);
+
+    socket.on('ready', (data: any) => {
+      console.log('ready');
+      lobby.emit(data);
+    });
+
+    socket.on('score', (data: any) => {
+      console.log(data);
+      player1Score += 1;
+      player2Score += 1;
+      console.log({ scores: { player1Score, player2Score } });
+    });
+
+    console.log(lobby.on);
   });
 
   res.json(`${link}`);
