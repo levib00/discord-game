@@ -22,7 +22,7 @@ const Nav = () => {
 
   const joinSocket = async () => {
     const uuid = await createChallengeLink('http://localhost:8082/api/game/link');
-    navigate(`/challenge/lobby?=${await uuid}`);
+    navigate(`/challenge/${await uuid}`);
   };
 
   return (
