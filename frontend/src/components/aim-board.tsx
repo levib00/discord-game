@@ -1,12 +1,13 @@
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
+import { io } from 'socket.io-client';
 import Target, { ICoordinates } from './target';
-import socketio from '../socketio';
 
 interface IAimBoardProps {
   targets: ICoordinates[]
   setScore: any
   score: number
+  lobbyNsp: ReturnType<typeof io>
 }
 
 let targetScore: number = 1000;
@@ -16,7 +17,12 @@ let timerId: ReturnType<typeof setTimeout>;
 const timerStep = 1000;
 
 const AimBoard = (props: IAimBoardProps) => {
-  const { targets, setScore, score } = props;
+  const {
+    targets,
+    setScore,
+    score,
+    lobbyNsp,
+  } = props;
   const [jwt] = useState(localStorage.getItem('jwt') || '');
 
   function startTimer() {
@@ -34,7 +40,7 @@ const AimBoard = (props: IAimBoardProps) => {
   };
 
   const sendScore = async (newScore: number, authJwt: string) => {
-    socketio.emit('score', { newScore, jwt: authJwt });
+    lobbyNsp.emit('score', { newScore, jwt: authJwt });
   };
 
   const targetClicked = () => {
