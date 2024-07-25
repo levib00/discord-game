@@ -46,11 +46,11 @@ const AimBoard = (props: IAimBoardProps) => {
   const targetClicked = () => {
     targetScore = getRemainingTime();
     restartTimer();
-    if (score < 1) {
+    if (targetScore < 1) {
       targetScore = 0;
     }
     targetScore += 100;
-    sendScore(score, jwt || '');
+    sendScore(targetScore, jwt || '');
     setScore(score + targetScore);
   };
 
