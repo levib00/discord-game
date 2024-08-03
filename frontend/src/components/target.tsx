@@ -22,6 +22,7 @@ const Target = (props: ITargetProps) => {
     currentTargets,
     targetClicked,
   } = props;
+
   const { xCoords, yCoords } = target;
 
   const removeThisTarget = () => {
