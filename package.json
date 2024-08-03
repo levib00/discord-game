@@ -17,6 +17,7 @@
   "dependencies": {
     "@jest/globals": "^29.7.0",
     "@neondatabase/serverless": "^0.9.4",
+    "@tanstack/react-query": "^5.51.18",
     "@types/cookie-parser": "^1.4.7",
     "@types/http-errors": "^2.0.4",
     "@types/morgan": "^1.9.9",
