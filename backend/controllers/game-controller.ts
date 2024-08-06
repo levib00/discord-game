@@ -33,6 +33,8 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
   let player2Score = 0;
 
   lobby.on('connection', (socket: any) => {
+    // TODO: When actual logic gets written for this
+    // TODO: put it in helper function file for easier testing.
     console.log('someone connected to namespace', socket.id);
 
     socket.on('ready', (data: any) => {

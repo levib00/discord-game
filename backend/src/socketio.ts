@@ -12,6 +12,9 @@ io.on('connection', (socket: any) => {
   // TODO: maybe make clients an object that i can index instead of foreaching
 
   socket.on('message', (data: number) => {
+    // TODO: When actual logic gets written for this
+    // TODO: put it in helper function file for easier testing.
+    // TODO: if this is even needed.
     console.log(socket.handshake);
     console.log(data);
   });
