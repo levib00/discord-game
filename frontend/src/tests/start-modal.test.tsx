@@ -6,8 +6,13 @@ import userEvent from '@testing-library/user-event';
 import StartModal from '../components/start-modal';
 
 describe('Start Modal renders', () => {
-  const setLobbyNspMock = jest.fn();
-  const emitMock = jest.fn();
+  let setLobbyNspMock: jest.Mock;
+  let emitMock: jest.Mock;
+
+  beforeEach(() => {
+    setLobbyNspMock = jest.fn();
+    emitMock = jest.fn();
+  });
 
   jest.mock('socket.io-client', () => {
     const mSocket = {
@@ -40,5 +45,21 @@ describe('Start Modal renders', () => {
     const target = screen.getByRole('button');
     await userEvent.click(target);
     expect(setLobbyNspMock).toHaveBeenCalledTimes(1);
+  });
+
+  test('Lobby does not send ready or connect to namespace if already connected and ready button is pressed again', async () => {
+    const ENDPOINT = 'localhost:5000';
+    const mockSocket = io(ENDPOINT);
+    mockSocket.connected = true;
+
+    render(
+      <MemoryRouter>
+        <StartModal lobbyNsp={mockSocket} setLobbyNsp={setLobbyNspMock} />
+      </MemoryRouter>,
+    );
+
+    const target = screen.getByRole('button');
+    await userEvent.click(target);
+    expect(setLobbyNspMock).not.toHaveBeenCalled();
   });
 });
