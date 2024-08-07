@@ -7,12 +7,13 @@ import * as getTargets from '../helpers/fetchers';
 
 const queryClient = new QueryClient();
 
-describe('GameScreen renders', () => {
+describe('GameScreen', () => {
+  const setIsConnectedMock = jest.fn();
   test('Gamescreen renders', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <GameScreen />
+          <GameScreen isConnected={false} setIsConnected={setIsConnectedMock} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -26,7 +27,7 @@ describe('GameScreen renders', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <GameScreen />
+          <GameScreen isConnected={true} setIsConnected={setIsConnectedMock} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -35,7 +36,7 @@ describe('GameScreen renders', () => {
     expect(aimboard).not.toBeInTheDocument();
   });
 
-  test('Aimboard does not render if there are no targets', async () => {
+  test('Aimboard does not renders if there are targets', async () => {
     jest.spyOn(getTargets, 'getTargets').mockResolvedValue([{
       xCoords: 250,
       yCoords: 250,
@@ -44,7 +45,7 @@ describe('GameScreen renders', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <GameScreen />
+          <GameScreen isConnected={true} setIsConnected={setIsConnectedMock} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
