@@ -5,9 +5,16 @@ import ScoreBoard from './score-board';
 import StartModal from './start-modal';
 import { getTargets } from '../helpers/fetchers';
 
-const GameScreen = () => {
+interface IGameScreenProps {
+  isConnected: boolean
+  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const GameScreen = (props: IGameScreenProps) => {
+  const { isConnected, setIsConnected } = props;
   const [score, setScore] = useState(0);
   const [lobbyNsp, setLobbyNsp] = useState<any>();
+  const [playerId, setPlayerId] = useState<string>('');
 
   const {
     isPending, data,
@@ -21,13 +28,19 @@ const GameScreen = () => {
 
   return (
     <div data-testid='game-screen'>
-      <ScoreBoard player1Score={score} player2Score={0}/>
-      <StartModal lobbyNsp={lobbyNsp} setLobbyNsp={setLobbyNsp} />
-      {data?.length > 0 && <AimBoard
+      <ScoreBoard player1Score={score} playerId={playerId} lobbyNsp={lobbyNsp} />
+      {!isConnected && <StartModal
+        lobbyNsp={lobbyNsp}
+        setLobbyNsp={setLobbyNsp}
+        setPlayerId={setPlayerId}
+        setIsConnected={setIsConnected}
+      />}
+      {(data?.length > 0 && isConnected) && <AimBoard
         lobbyNsp={lobbyNsp}
         targets={data}
         setScore={setScore}
         score={score}
+        playerId={playerId}
       /> }
       {isPending && <>Loading...</>}
     </div>
