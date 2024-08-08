@@ -1,26 +1,38 @@
 import { io } from 'socket.io-client';
-import { SetStateAction, useState } from 'react';
+import { SetStateAction, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { sendReady } from '../helpers/socket-callbacks';
 
 interface IStartModalProps {
   setLobbyNsp: SetStateAction<any>
   lobbyNsp: ReturnType<typeof io>
+  setPlayerId: React.Dispatch<React.SetStateAction<string>>
+  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const StartModal = (props: IStartModalProps) => {
-  const { setLobbyNsp, lobbyNsp } = props;
+  const {
+    setLobbyNsp,
+    lobbyNsp,
+    setPlayerId,
+    setIsConnected,
+  } = props;
   const [lobbyCode] = useState(useParams().lobbyId);
 
-  const sendReady = async () => {
-    lobbyNsp.emit('ready', lobbyCode);
-  };
-
-  const readyButtonHandler = () => {
+  const readyButtonHandler = async () => {
     if (!lobbyNsp?.connected) {
       setLobbyNsp(io(`http://localhost:8082/${lobbyCode}`));
-      sendReady();
     }
   };
+
+  useEffect(() => {
+    if (lobbyNsp) {
+      lobbyNsp.on('ready', () => {
+        sendReady(setPlayerId, lobbyNsp);
+        setIsConnected(true);
+      });
+    }
+  });
 
   return (
     <div>
