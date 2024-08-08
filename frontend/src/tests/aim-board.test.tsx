@@ -16,7 +16,7 @@ describe('AimBoard renders', () => {
   test('About renders with correct text', () => {
     render(
       <MemoryRouter>
-        <AimBoard targets={targets} score={0} lobbyNsp={io()} setScore={jest.fn()}/>
+        <AimBoard playerId={''} targets={targets} score={0} lobbyNsp={io()} setScore={jest.fn()}/>
       </MemoryRouter>,
     );
 
@@ -30,12 +30,12 @@ describe('AimBoard renders', () => {
     render(
       <MemoryRouter>
         {/* @ts-ignore */}
-        <AimBoard targets={targets} score={0} lobbyNsp={ioMock()} setScore={jest.fn()}/>
+        <AimBoard playerId={''} targets={targets} score={0} lobbyNsp={ioMock()} setScore={jest.fn()}/>
       </MemoryRouter>,
     );
 
     const target = screen.getByTestId('target');
     await userEvent.click(target);
-    expect(emitMock).toHaveBeenCalledWith('score', { jwt: '', newScore: 100 });
+    expect(emitMock).toHaveBeenCalledWith('score', { playerId: '', newScore: 100 });
   });
 });
