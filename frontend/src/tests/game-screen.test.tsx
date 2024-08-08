@@ -8,12 +8,12 @@ import * as getTargets from '../helpers/fetchers';
 const queryClient = new QueryClient();
 
 describe('GameScreen', () => {
-  const setIsConnectedMock = jest.fn();
+  const setIsConnectedToNspMock = jest.fn();
   test('Gamescreen renders', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <GameScreen isConnected={false} setIsConnected={setIsConnectedMock} />
+          <GameScreen isConnectedToNsp={false} setIsConnectedToNsp={setIsConnectedToNspMock} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -27,7 +27,7 @@ describe('GameScreen', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <GameScreen isConnected={true} setIsConnected={setIsConnectedMock} />
+          <GameScreen isConnectedToNsp={true} setIsConnectedToNsp={setIsConnectedToNspMock} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -45,7 +45,7 @@ describe('GameScreen', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <GameScreen isConnected={true} setIsConnected={setIsConnectedMock} />
+          <GameScreen isConnectedToNsp={true} setIsConnectedToNsp={setIsConnectedToNspMock} />
         </MemoryRouter>
       </QueryClientProvider>,
     );
