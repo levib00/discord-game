@@ -46,7 +46,7 @@ const Target = (props: ITargetProps) => {
       height: '60px',
       borderRadius: '60px',
     }} data-testid='target'
-    onClick={handleTargetClicked}
+    onMouseDown={handleTargetClicked}
     >
 
     </div>
