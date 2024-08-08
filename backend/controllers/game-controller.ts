@@ -32,21 +32,33 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
   let player1Score = 0;
   let player2Score = 0;
 
+  // TODO: move all socketio to own file.
   lobby.on('connection', (socket: any) => {
-    // TODO: When actual logic gets written for this
-    // TODO: put it in helper function file for easier testing.
+    let player1Id: string;
+    let player2Id: string;
+
     console.log('someone connected to namespace', socket.id);
 
+    lobby.emit('ready');
+
     socket.on('ready', (data: any) => {
-      console.log('ready');
-      lobby.emit(data);
+      if (!player1Id) {
+        player1Id = data;
+      } else if (!player2Id) {
+        player2Id = data;
+      }
     });
 
     socket.on('score', (data: any) => {
-      console.log(data);
-      player1Score += 1;
-      player2Score += 1;
-      console.log({ scores: { player1Score, player2Score } });
+      if (data.playerId === player1Id) {
+        player1Score += data.newScore;
+      } else if (data.playerId === player2Id) {
+        player2Score += data.newScore;
+      }
+      lobby.emit({
+        scores: { player1Score, player2Score },
+        ids: { player1Id, player2Id },
+      });
     });
 
     console.log(lobby.on);
