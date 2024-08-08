@@ -6,12 +6,12 @@ import StartModal from './start-modal';
 import { getTargets } from '../helpers/fetchers';
 
 interface IGameScreenProps {
-  isConnected: boolean
-  setIsConnected: React.Dispatch<React.SetStateAction<boolean>>
+  isConnectedToNsp: boolean
+  setIsConnectedToNsp: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const GameScreen = (props: IGameScreenProps) => {
-  const { isConnected, setIsConnected } = props;
+  const { isConnectedToNsp, setIsConnectedToNsp } = props;
   const [score, setScore] = useState(0);
   const [lobbyNsp, setLobbyNsp] = useState<any>();
   const [playerId, setPlayerId] = useState<string>('');
@@ -29,13 +29,13 @@ const GameScreen = (props: IGameScreenProps) => {
   return (
     <div data-testid='game-screen'>
       <ScoreBoard player1Score={score} playerId={playerId} lobbyNsp={lobbyNsp} />
-      {!isConnected && <StartModal
+      {!isConnectedToNsp && <StartModal
         lobbyNsp={lobbyNsp}
         setLobbyNsp={setLobbyNsp}
         setPlayerId={setPlayerId}
-        setIsConnected={setIsConnected}
+        setIsConnected={setIsConnectedToNsp}
       />}
-      {(data?.length > 0 && isConnected) && <AimBoard
+      {(data?.length > 0 && isConnectedToNsp) && <AimBoard
         lobbyNsp={lobbyNsp}
         targets={data}
         setScore={setScore}
