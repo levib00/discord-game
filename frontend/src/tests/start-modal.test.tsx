@@ -8,6 +8,8 @@ import StartModal from '../components/start-modal';
 describe('Start Modal renders', () => {
   let setLobbyNspMock: jest.Mock;
   let emitMock: jest.Mock;
+  const setPlayerId = jest.fn();
+  const setIsConnected = jest.fn();
 
   beforeEach(() => {
     setLobbyNspMock = jest.fn();
@@ -24,7 +26,11 @@ describe('Start Modal renders', () => {
   test('start modal renders', () => {
     render(
       <MemoryRouter>
-        <StartModal lobbyNsp={io()} setLobbyNsp={jest.fn()} />
+        <StartModal
+        setIsConnected={setIsConnected}
+        setPlayerId={setPlayerId}
+        lobbyNsp={io()}
+        setLobbyNsp={jest.fn()} />
       </MemoryRouter>,
     );
 
@@ -38,7 +44,11 @@ describe('Start Modal renders', () => {
 
     render(
       <MemoryRouter>
-        <StartModal lobbyNsp={mockSocket} setLobbyNsp={setLobbyNspMock} />
+        <StartModal
+        setIsConnected={setIsConnected}
+        setPlayerId={setPlayerId}
+        lobbyNsp={mockSocket}
+        setLobbyNsp={setLobbyNspMock} />
       </MemoryRouter>,
     );
 
@@ -54,7 +64,11 @@ describe('Start Modal renders', () => {
 
     render(
       <MemoryRouter>
-        <StartModal lobbyNsp={mockSocket} setLobbyNsp={setLobbyNspMock} />
+        <StartModal
+        setIsConnected={setIsConnected}
+        setPlayerId={setPlayerId}
+        lobbyNsp={mockSocket}
+        setLobbyNsp={setLobbyNspMock} />
       </MemoryRouter>,
     );
 
