@@ -8,6 +8,7 @@ interface IAimBoardProps {
   setScore: any
   score: number
   lobbyNsp: ReturnType<typeof io>
+  playerId: string
 }
 
 let targetScore: number = 1000;
@@ -22,8 +23,8 @@ const AimBoard = (props: IAimBoardProps) => {
     setScore,
     score,
     lobbyNsp,
+    playerId,
   } = props;
-  const [jwt] = useState(localStorage.getItem('jwt') || '');
 
   function startTimer() {
     startTimeMS = (new Date()).getTime();
@@ -39,8 +40,8 @@ const AimBoard = (props: IAimBoardProps) => {
     startTimer();
   };
 
-  const sendScore = async (newScore: number, authJwt: string) => {
-    lobbyNsp.emit('score', { newScore, jwt: authJwt });
+  const sendScore = async (newScore: number, sentPlayerId: string) => {
+    lobbyNsp.emit('score', { newScore, playerId: sentPlayerId });
   };
 
   const targetClicked = () => {
@@ -50,7 +51,7 @@ const AimBoard = (props: IAimBoardProps) => {
       targetScore = 0;
     }
     targetScore += 100;
-    sendScore(targetScore, jwt || '');
+    sendScore(targetScore, playerId);
     setScore(score + targetScore);
   };
 
