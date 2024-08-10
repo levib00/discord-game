@@ -27,10 +27,12 @@ describe('Start Modal renders', () => {
     render(
       <MemoryRouter>
         <StartModal
-        setIsConnected={setIsConnected}
-        setPlayerId={setPlayerId}
-        lobbyNsp={io()}
-        setLobbyNsp={jest.fn()} />
+          setIsConnected={setIsConnected}
+          setPlayerId={setPlayerId}
+          lobbyNsp={io()}
+          setLobbyNsp={jest.fn()}
+          setIsGameReady={jest.fn()}
+        />
       </MemoryRouter>,
     );
 
@@ -45,10 +47,12 @@ describe('Start Modal renders', () => {
     render(
       <MemoryRouter>
         <StartModal
-        setIsConnected={setIsConnected}
-        setPlayerId={setPlayerId}
-        lobbyNsp={mockSocket}
-        setLobbyNsp={setLobbyNspMock} />
+          setIsConnected={setIsConnected}
+          setPlayerId={setPlayerId}
+          lobbyNsp={mockSocket}
+          setLobbyNsp={setLobbyNspMock}
+          setIsGameReady={jest.fn()}
+          />
       </MemoryRouter>,
     );
 
@@ -65,10 +69,12 @@ describe('Start Modal renders', () => {
     render(
       <MemoryRouter>
         <StartModal
-        setIsConnected={setIsConnected}
-        setPlayerId={setPlayerId}
-        lobbyNsp={mockSocket}
-        setLobbyNsp={setLobbyNspMock} />
+          setIsConnected={setIsConnected}
+          setPlayerId={setPlayerId}
+          lobbyNsp={mockSocket}
+          setLobbyNsp={setLobbyNspMock}
+          setIsGameReady={jest.fn()}
+        />
       </MemoryRouter>,
     );
 
