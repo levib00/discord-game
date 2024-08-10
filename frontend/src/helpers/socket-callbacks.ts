@@ -20,12 +20,11 @@ interface IData {
   }
 }
 
-export const updatePlayer2Score = (
+export const updateScores = (
   data: IData,
-  playerId: string,
+  setPlayer1Score: React.Dispatch<React.SetStateAction<number>>,
   setPlayer2Score: React.Dispatch<React.SetStateAction<number>>,
 ) => {
-  if (data.ids.player2Id !== playerId) {
-    setPlayer2Score(data.scores.player2Score);
-  }
+  setPlayer1Score(data.scores.player1Score);
+  setPlayer2Score(data.scores.player2Score);
 };
