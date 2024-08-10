@@ -8,6 +8,7 @@ interface IStartModalProps {
   lobbyNsp: ReturnType<typeof io>
   setPlayerId: React.Dispatch<React.SetStateAction<string>>
   setIsConnected: React.Dispatch<React.SetStateAction<boolean>>
+  setIsGameReady: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const StartModal = (props: IStartModalProps) => {
@@ -16,6 +17,7 @@ const StartModal = (props: IStartModalProps) => {
     lobbyNsp,
     setPlayerId,
     setIsConnected,
+    setIsGameReady,
   } = props;
   const [lobbyCode] = useState(useParams().lobbyId);
 
@@ -30,6 +32,10 @@ const StartModal = (props: IStartModalProps) => {
       lobbyNsp.on('ready', () => {
         sendReady(setPlayerId, lobbyNsp);
         setIsConnected(true);
+      });
+
+      lobbyNsp.on('bothReady', () => {
+        setIsGameReady(true);
       });
     }
   });
