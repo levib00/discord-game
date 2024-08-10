@@ -55,13 +55,12 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
       } else if (data.playerId === player2Id) {
         player2Score += data.newScore;
       }
-      lobby.emit({
+
+      lobby.emit('score', {
         scores: { player1Score, player2Score },
         ids: { player1Id, player2Id },
       });
     });
-
-    console.log(lobby.on);
   });
 
   res.json(`${link}`);
