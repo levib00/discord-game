@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { updatePlayer2Score } from '../helpers/socket-callbacks';
+import { updateScores } from '../helpers/socket-callbacks';
 
 interface IScoreBoard {
   player1Score: number
@@ -8,22 +8,19 @@ interface IScoreBoard {
 }
 
 const ScoreBoard = (props: IScoreBoard) => {
-  const {
-    player1Score,
-    lobbyNsp,
-    playerId,
-  } = props;
+  const { lobbyNsp } = props;
 
+  const [player1Score, setPlayer1Score] = useState<number>(0);
   const [player2Score, setPlayer2Score] = useState<number>(0);
 
   // Set other players score. The score the player sees for themself is calculated client side.
   useEffect(() => {
     if (lobbyNsp) {
       lobbyNsp.on('score', (data: any) => {
-        updatePlayer2Score(data, playerId, setPlayer2Score);
+        updateScores(data, setPlayer1Score, setPlayer2Score);
       });
     }
-  });
+  }, [lobbyNsp]);
 
   return (
     <div>
