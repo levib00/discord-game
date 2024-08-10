@@ -15,6 +15,7 @@ const GameScreen = (props: IGameScreenProps) => {
   const [score, setScore] = useState(0);
   const [lobbyNsp, setLobbyNsp] = useState<any>();
   const [playerId, setPlayerId] = useState<string>('');
+  const [isGameReady, setIsGameReady] = useState<boolean>(false);
 
   const {
     isPending, data,
@@ -29,13 +30,15 @@ const GameScreen = (props: IGameScreenProps) => {
   return (
     <div data-testid='game-screen'>
       <ScoreBoard player1Score={score} playerId={playerId} lobbyNsp={lobbyNsp} />
-      {!isConnectedToNsp && <StartModal
+      {(isConnectedToNsp && !isGameReady) && <>Waiting for opponent...</>}
+      {(!isConnectedToNsp && !isGameReady) && <StartModal
         lobbyNsp={lobbyNsp}
         setLobbyNsp={setLobbyNsp}
         setPlayerId={setPlayerId}
         setIsConnected={setIsConnectedToNsp}
+        setIsGameReady={setIsGameReady}
       />}
-      {(data?.length > 0 && isConnectedToNsp) && <AimBoard
+      {(data?.length > 0 && isConnectedToNsp && isGameReady) && <AimBoard
         lobbyNsp={lobbyNsp}
         targets={data}
         setScore={setScore}
