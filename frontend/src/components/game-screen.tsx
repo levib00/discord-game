@@ -8,14 +8,20 @@ import { getTargets } from '../helpers/fetchers';
 interface IGameScreenProps {
   isConnectedToNsp: boolean
   setIsConnectedToNsp: React.Dispatch<React.SetStateAction<boolean>>
+  isGameReady: boolean
+  setIsGameReady: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const GameScreen = (props: IGameScreenProps) => {
-  const { isConnectedToNsp, setIsConnectedToNsp } = props;
+  const {
+    isConnectedToNsp,
+    setIsConnectedToNsp,
+    isGameReady,
+    setIsGameReady,
+  } = props;
   const [score, setScore] = useState(0);
   const [lobbyNsp, setLobbyNsp] = useState<any>();
   const [playerId, setPlayerId] = useState<string>('');
-  const [isGameReady, setIsGameReady] = useState<boolean>(false);
 
   const {
     isPending, data,
