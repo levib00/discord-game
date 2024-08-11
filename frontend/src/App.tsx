@@ -13,6 +13,7 @@ const queryClient = new QueryClient();
 function App() {
   const [isDarkMode, setIsDarkMode] = useState<string>('true');
   const [isConnectedToNsp, setIsConnectedToNsp] = useState<boolean>(false);
+  const [isGameReady, setIsGameReady] = useState<boolean>(false);
 
   // Load dark mode
   useEffect(() => {
@@ -32,7 +33,7 @@ function App() {
           <main className='main'>
             <Routes>
               <Route path='/' element={<Home />} />
-              <Route path='/challenge/:lobbyId' element={<GameScreen isConnectedToNsp={isConnectedToNsp} setIsConnectedToNsp={setIsConnectedToNsp} />} />
+              <Route path='/challenge/:lobbyId' element={<GameScreen isGameReady={isGameReady} setIsGameReady={setIsGameReady} isConnectedToNsp={isConnectedToNsp} setIsConnectedToNsp={setIsConnectedToNsp} />} />
             </Routes>
           </main>
         </BrowserRouter>
