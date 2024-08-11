@@ -9,11 +9,17 @@ const queryClient = new QueryClient();
 
 describe('GameScreen', () => {
   const setIsConnectedToNspMock = jest.fn();
+  const setIsGameReadyMock = jest.fn();
   test('Gamescreen renders', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <GameScreen isConnectedToNsp={false} setIsConnectedToNsp={setIsConnectedToNspMock} />
+          <GameScreen
+            isGameReady={false}
+            setIsGameReady={setIsGameReadyMock}
+            isConnectedToNsp={false}
+            setIsConnectedToNsp={setIsConnectedToNspMock}
+          />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -27,7 +33,12 @@ describe('GameScreen', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <GameScreen isConnectedToNsp={true} setIsConnectedToNsp={setIsConnectedToNspMock} />
+          <GameScreen
+            isGameReady={false}
+            setIsGameReady={setIsGameReadyMock}
+            isConnectedToNsp={true}
+            setIsConnectedToNsp={setIsConnectedToNspMock}
+          />
         </MemoryRouter>
       </QueryClientProvider>,
     );
@@ -36,7 +47,7 @@ describe('GameScreen', () => {
     expect(aimboard).not.toBeInTheDocument();
   });
 
-  test('Aimboard does not renders if there are targets', async () => {
+  test('Aimboard does not renders if game is not ready', async () => {
     jest.spyOn(getTargets, 'getTargets').mockResolvedValue([{
       xCoords: 250,
       yCoords: 250,
@@ -45,14 +56,44 @@ describe('GameScreen', () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <GameScreen isConnectedToNsp={true} setIsConnectedToNsp={setIsConnectedToNspMock} />
+          <GameScreen
+            isGameReady={false}
+            setIsGameReady={setIsGameReadyMock}
+            isConnectedToNsp={true}
+            setIsConnectedToNsp={setIsConnectedToNspMock}
+          />
         </MemoryRouter>
       </QueryClientProvider>,
     );
 
     await waitFor(() => {
-      const exampleName1 = screen.getByTestId('aim-board');
-      expect(exampleName1).toBeInTheDocument();
+      const waitingForOpponents = screen.getByText('Waiting for opponent...');
+      expect(waitingForOpponents).toBeInTheDocument();
+    });
+  });
+
+  test('Aimboard does not renders if game is not ready', async () => {
+    jest.spyOn(getTargets, 'getTargets').mockResolvedValue([{
+      xCoords: 250,
+      yCoords: 250,
+    }]);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <GameScreen
+            isGameReady={true}
+            setIsGameReady={setIsGameReadyMock}
+            isConnectedToNsp={true}
+            setIsConnectedToNsp={setIsConnectedToNspMock}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      const aimboard = screen.getByTestId('aim-board');
+      expect(aimboard).toBeInTheDocument();
     });
   });
 });
