@@ -36,6 +36,7 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
   lobby.on('connection', (socket: any) => {
     let player1Id: string;
     let player2Id: string;
+    // TODO: deny connection if both playerIds are truthy
 
     console.log('someone connected to namespace', socket.id);
 
@@ -46,6 +47,9 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
         player1Id = data;
       } else if (!player2Id) {
         player2Id = data;
+      }
+      if (player1Id && player2Id) {
+        lobby.emit('bothReady');
       }
     });
 
