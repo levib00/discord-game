@@ -1,5 +1,5 @@
 import express from 'express';
-import { getTargets, getChallengeLink } from '../controllers/game-controller';
+import { getTargets, getChallengeLink, checkIfLobbyExists } from '../controllers/game-controller';
 
 const router = express.Router();
 
@@ -7,5 +7,7 @@ const router = express.Router();
 router.get('/targets', getTargets);
 
 router.get('/link', getChallengeLink);
+
+router.get('/check-lobby/:lobbyId', checkIfLobbyExists);
 
 export default router;
