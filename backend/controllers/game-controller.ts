@@ -69,3 +69,8 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
 
   res.json(`${link}`);
 });
+
+export const checkIfLobbyExists = asyncHandler(async (req: Request, res: Response) => {
+  // eslint-disable-next-line no-underscore-dangle
+  res.json(socketio.io._nsps.has(`/${req.params.lobbyId}`));
+});
