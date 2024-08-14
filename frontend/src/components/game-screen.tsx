@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 import AimBoard from './aim-board';
 import ScoreBoard from './score-board';
 import StartModal from './start-modal';
-import { getTargets } from '../helpers/fetchers';
+import { checkLobbyExists, getTargets } from '../helpers/fetchers';
 
 interface IGameScreenProps {
   isConnectedToNsp: boolean
@@ -22,15 +23,28 @@ const GameScreen = (props: IGameScreenProps) => {
   const [score, setScore] = useState(0);
   const [lobbyNsp, setLobbyNsp] = useState<any>();
   const [playerId, setPlayerId] = useState<string>('');
+  const { lobbyId } = useParams();
 
   const {
-    isPending, data,
+    isPending: isPendingLobbyCheck, data: isLobbyExists,
+  } = useQuery({
+    queryKey: ['repoData'],
+    queryFn: async () => {
+      const response = await checkLobbyExists(`http://localhost:8082/api/game/check-lobby/${lobbyId}`);
+      return response;
+    },
+  });
+
+  const {
+    isPending: isPendingTargets, data: targets,
   } = useQuery({
     queryKey: ['repoData'],
     queryFn: async () => {
       const response = await getTargets('http://localhost:8082/api/game/targets');
       return response;
     },
+    enabled: !!isLobbyExists,
+    retry: !!isLobbyExists,
   });
 
   return (
@@ -44,14 +58,14 @@ const GameScreen = (props: IGameScreenProps) => {
         setIsConnected={setIsConnectedToNsp}
         setIsGameReady={setIsGameReady}
       />}
-      {(data?.length > 0 && isConnectedToNsp && isGameReady) && <AimBoard
+      {(targets?.length > 0 && isConnectedToNsp && isGameReady) && <AimBoard
         lobbyNsp={lobbyNsp}
-        targets={data}
+        targets={targets}
         setScore={setScore}
         score={score}
         playerId={playerId}
       /> }
-      {isPending && <>Loading...</>}
+      {isPendingLobbyCheck && isPendingTargets && <>Loading...</>}
     </div>
   );
 };
