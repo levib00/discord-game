@@ -28,7 +28,7 @@ const GameScreen = (props: IGameScreenProps) => {
   const {
     isPending: isPendingLobbyCheck, data: isLobbyExists,
   } = useQuery({
-    queryKey: ['repoData'],
+    queryKey: ['lobbyCheck'],
     queryFn: async () => {
       const response = await checkLobbyExists(`http://localhost:8082/api/game/check-lobby/${lobbyId}`);
       return response;
@@ -38,7 +38,7 @@ const GameScreen = (props: IGameScreenProps) => {
   const {
     isPending: isPendingTargets, data: targets,
   } = useQuery({
-    queryKey: ['repoData'],
+    queryKey: ['targets'],
     queryFn: async () => {
       const response = await getTargets('http://localhost:8082/api/game/targets');
       return response;
@@ -49,7 +49,11 @@ const GameScreen = (props: IGameScreenProps) => {
 
   return (
     <div data-testid='game-screen'>
-      <ScoreBoard player1Score={score} playerId={playerId} lobbyNsp={lobbyNsp} />
+      {(targets?.length > 0 && isConnectedToNsp && isGameReady) && <ScoreBoard
+        player1Score={score}
+        playerId={playerId}
+        lobbyNsp={lobbyNsp}
+      />}
       {(isConnectedToNsp && !isGameReady) && <>Waiting for opponent...</>}
       {(!isConnectedToNsp && !isGameReady) && <StartModal
         lobbyNsp={lobbyNsp}
