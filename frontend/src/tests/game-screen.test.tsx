@@ -3,13 +3,23 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import GameScreen from '../components/game-screen';
-import * as getTargets from '../helpers/fetchers';
+import * as fetchers from '../helpers/fetchers';
 
 const queryClient = new QueryClient();
 
 describe('GameScreen', () => {
   const setIsConnectedToNspMock = jest.fn();
   const setIsGameReadyMock = jest.fn();
+
+  beforeEach(() => {
+    jest.spyOn(fetchers, 'getTargets').mockResolvedValue([{
+      xCoords: 250,
+      yCoords: 250,
+    }]);
+
+    jest.spyOn(fetchers, 'checkLobbyExists').mockResolvedValue(true);
+  });
+
   test('Gamescreen renders', () => {
     render(
       <QueryClientProvider client={queryClient}>
@@ -29,7 +39,7 @@ describe('GameScreen', () => {
   });
 
   test('Aimboard does not render if there are no targets', () => {
-    jest.spyOn(getTargets, 'getTargets').mockResolvedValue(() => []);
+    jest.spyOn(fetchers, 'getTargets').mockResolvedValue(() => []);
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -48,11 +58,6 @@ describe('GameScreen', () => {
   });
 
   test('Aimboard does not renders if game is not ready', async () => {
-    jest.spyOn(getTargets, 'getTargets').mockResolvedValue([{
-      xCoords: 250,
-      yCoords: 250,
-    }]);
-
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -72,12 +77,7 @@ describe('GameScreen', () => {
     });
   });
 
-  test('Aimboard does not renders if game is not ready', async () => {
-    jest.spyOn(getTargets, 'getTargets').mockResolvedValue([{
-      xCoords: 250,
-      yCoords: 250,
-    }]);
-
+  test('Aimboard does renders if game is ready', async () => {
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
