@@ -25,4 +25,11 @@ describe('Game controllers', () => {
       .expect('Content-Type', /json/)
       .expect(200, done);
   });
+
+  test('Check lobby exists', (done) => {
+    request(app)
+      .head('/api/game/check-lobby/test')
+      .expect('Content-Type', /json/)
+      .expect(200, done);
+  });
 });
