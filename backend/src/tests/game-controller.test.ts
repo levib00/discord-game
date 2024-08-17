@@ -4,12 +4,12 @@
 import request from 'supertest';
 import express from 'express';
 import 'dotenv/config';
-import messages from '../../routes/game';
+import game from '../../routes/game';
 
 const app = express();
 
 app.use(express.urlencoded({ extended: false }));
-app.use('/api/game', messages);
+app.use('/api/game', game);
 
 describe('Game controllers', () => {
   test('Get targets', (done) => {
