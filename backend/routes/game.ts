@@ -3,11 +3,10 @@ import { getTargets, getChallengeLink, checkIfLobbyExists } from '../controllers
 
 const router = express.Router();
 
-/* GET home page. */
 router.get('/targets', getTargets);
 
 router.get('/link', getChallengeLink);
 
-router.get('/check-lobby/:lobbyId', checkIfLobbyExists);
+router.head('/check-lobby/:lobbyId', checkIfLobbyExists);
 
 export default router;
