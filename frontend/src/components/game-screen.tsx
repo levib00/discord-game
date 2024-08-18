@@ -44,8 +44,8 @@ const GameScreen = (props: IGameScreenProps) => {
       const response = await getTargets('http://localhost:8082/api/game/targets');
       return response;
     },
-    enabled: !!isLobbyExists,
-    retry: !!isLobbyExists,
+    enabled: isLobbyExists,
+    retry: isLobbyExists,
   });
 
   return (
