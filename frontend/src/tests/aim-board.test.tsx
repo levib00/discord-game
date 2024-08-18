@@ -16,7 +16,7 @@ describe('AimBoard renders', () => {
   test('About renders with correct text', () => {
     render(
       <MemoryRouter>
-        <AimBoard playerId={''} targets={targets} score={0} lobbyNsp={io()} setScore={jest.fn()}/>
+        <AimBoard isTimerDone={true} setIsTimerDone={jest.fn()} playerId={''} targets={targets} score={0} lobbyNsp={io()} setScore={jest.fn()}/>
       </MemoryRouter>,
     );
 
@@ -24,13 +24,13 @@ describe('AimBoard renders', () => {
     expect(aimBoardId).toBeInTheDocument();
   });
 
-  test('About renders with correct text', async () => {
+  test('Clicking target runs correct function', async () => {
     const ioMock = () => ({ emit: emitMock });
 
     render(
       <MemoryRouter>
         {/* @ts-ignore */}
-        <AimBoard playerId={''} targets={targets} score={0} lobbyNsp={ioMock()} setScore={jest.fn()}/>
+        <AimBoard isTimerDone={true} setIsTimerDone={jest.fn()} playerId={''} targets={targets} score={0} lobbyNsp={ioMock()} setScore={jest.fn()}/>
       </MemoryRouter>,
     );
 
