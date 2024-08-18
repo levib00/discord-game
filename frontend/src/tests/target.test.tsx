@@ -20,7 +20,9 @@ describe('Target renders', () => {
         setCurrentTargets={jest.fn()}
         index={0}
         currentTargets={[]}
-        targetClicked={jest.fn()}/>
+        targetClicked={jest.fn()}
+        isTimerDone={false}
+        />
       </MemoryRouter>,
     );
 
@@ -36,7 +38,9 @@ describe('Target renders', () => {
         setCurrentTargets={jest.fn()}
         index={0}
         currentTargets={[]}
-        targetClicked={targetClicked}/>
+        targetClicked={targetClicked}
+        isTimerDone={true}
+        />
       </MemoryRouter>,
     );
 
