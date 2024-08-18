@@ -23,6 +23,7 @@ const GameScreen = (props: IGameScreenProps) => {
   const [score, setScore] = useState(0);
   const [lobbyNsp, setLobbyNsp] = useState<any>();
   const [playerId, setPlayerId] = useState<string>('');
+  const [isTimerDone, setIsTimerDone] = useState(false);
   const { lobbyId } = useParams();
 
   const {
@@ -68,6 +69,8 @@ const GameScreen = (props: IGameScreenProps) => {
         setScore={setScore}
         score={score}
         playerId={playerId}
+        isTimerDone={isTimerDone}
+        setIsTimerDone={setIsTimerDone}
       /> }
       {isPendingLobbyCheck && isPendingTargets && <>Loading...</>}
     </div>
