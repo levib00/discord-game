@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import { io } from 'socket.io-client';
 import Target, { ICoordinates } from './target';
+import Countdown from './countdown';
 
 interface IAimBoardProps {
   targets: ICoordinates[]
@@ -9,6 +10,8 @@ interface IAimBoardProps {
   score: number
   lobbyNsp: ReturnType<typeof io>
   playerId: string
+  isTimerDone: boolean
+  setIsTimerDone: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 let targetScore: number = 1000;
@@ -24,6 +27,8 @@ const AimBoard = (props: IAimBoardProps) => {
     score,
     lobbyNsp,
     playerId,
+    isTimerDone,
+    setIsTimerDone,
   } = props;
 
   function startTimer() {
@@ -59,6 +64,7 @@ const AimBoard = (props: IAimBoardProps) => {
 
   return (
   <div data-testid='aim-board' className='aim-board'>
+      {!isTimerDone && <Countdown setIsTimerDone={setIsTimerDone} />}
       {currentTargets?.length > 0 && currentTargets.slice(0, 3).map(
         (target, index) => <Target
         key={uuidv4()}
@@ -66,7 +72,9 @@ const AimBoard = (props: IAimBoardProps) => {
         currentTargets={ currentTargets }
         setCurrentTargets={ setCurrentTargets }
         index={ index }
-        targetClicked={targetClicked}/>,
+        targetClicked={targetClicked}
+        isTimerDone={isTimerDone}
+        />,
       )}
     </div>
   );
