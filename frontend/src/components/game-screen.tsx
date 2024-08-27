@@ -27,7 +27,7 @@ const GameScreen = (props: IGameScreenProps) => {
   const { lobbyId } = useParams();
 
   const {
-    isPending: isPendingLobbyCheck, data: isLobbyExists,
+    isPending: isPendingLobbyCheck, data: isLobbyExists, isError: isLobbyError,
   } = useQuery({
     queryKey: ['lobbyCheck'],
     queryFn: async () => {
@@ -44,35 +44,38 @@ const GameScreen = (props: IGameScreenProps) => {
       const response = await getTargets('http://localhost:8082/api/game/targets');
       return response;
     },
-    enabled: isLobbyExists,
-    retry: isLobbyExists,
+    enabled: !!isLobbyExists,
+    retry: !!isLobbyExists,
   });
 
   return (
     <div data-testid='game-screen'>
-      {(targets?.length > 0 && isConnectedToNsp && isGameReady) && <ScoreBoard
-        player1Score={score}
-        playerId={playerId}
-        lobbyNsp={lobbyNsp}
-      />}
-      {(isConnectedToNsp && !isGameReady) && <>Waiting for opponent...</>}
-      {(!isConnectedToNsp && !isGameReady) && <StartModal
-        lobbyNsp={lobbyNsp}
-        setLobbyNsp={setLobbyNsp}
-        setPlayerId={setPlayerId}
-        setIsConnected={setIsConnectedToNsp}
-        setIsGameReady={setIsGameReady}
-      />}
-      {(targets?.length > 0 && isConnectedToNsp && isGameReady) && <AimBoard
-        lobbyNsp={lobbyNsp}
-        targets={targets}
-        setScore={setScore}
-        score={score}
-        playerId={playerId}
-        isTimerDone={isTimerDone}
-        setIsTimerDone={setIsTimerDone}
-      /> }
-      {isPendingLobbyCheck && isPendingTargets && <>Loading...</>}
+      { isLobbyExists || isLobbyError ? <>
+        {(targets?.length > 0 && isConnectedToNsp && isGameReady) && <ScoreBoard
+          player1Score={score}
+          playerId={playerId}
+          lobbyNsp={lobbyNsp}
+        />}
+        {(isConnectedToNsp && !isGameReady) && <>Waiting for opponent...</>}
+        {((!isConnectedToNsp && !isGameReady) && (!isPendingLobbyCheck && !isPendingTargets))
+          && <StartModal
+            lobbyNsp={lobbyNsp}
+            setLobbyNsp={setLobbyNsp}
+            setPlayerId={setPlayerId}
+            setIsConnected={setIsConnectedToNsp}
+            setIsGameReady={setIsGameReady}
+          />}
+        {(targets?.length > 0 && isConnectedToNsp && isGameReady) && <AimBoard
+          lobbyNsp={lobbyNsp}
+          targets={targets}
+          setScore={setScore}
+          score={score}
+          playerId={playerId}
+          isTimerDone={isTimerDone}
+          setIsTimerDone={setIsTimerDone}
+        /> }
+        {(isPendingLobbyCheck || isPendingTargets) && <>Loading...</>}
+      </> : <>This lobby does not exist.</>}
     </div>
   );
 };
