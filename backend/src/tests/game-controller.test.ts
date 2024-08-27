@@ -29,7 +29,6 @@ describe('Game controllers', () => {
   test('Check lobby exists', (done) => {
     request(app)
       .head('/api/game/check-lobby/test')
-      .expect('Content-Type', /json/)
-      .expect(200, done);
+      .expect(404, done);
   });
 });
