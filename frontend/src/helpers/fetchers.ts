@@ -25,8 +25,10 @@ export const checkLobbyExists = async (url: string) => {
       },
       mode: 'cors',
     });
-    await data.json();
-    return true;
+    if (data.status === 200) {
+      return true;
+    }
+    return false;
   } catch (error: any) {
     throw new Error(error);
   }
