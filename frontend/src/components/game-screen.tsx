@@ -24,6 +24,7 @@ const GameScreen = (props: IGameScreenProps) => {
   const [lobbyNsp, setLobbyNsp] = useState<any>();
   const [playerId, setPlayerId] = useState<string>('');
   const [isTimerDone, setIsTimerDone] = useState(false);
+  const [isGameDone, setIsGameDone] = useState(false);
   const { lobbyId } = useParams();
 
   const {
@@ -68,7 +69,7 @@ const GameScreen = (props: IGameScreenProps) => {
               setIsConnected={setIsConnectedToNsp}
               setIsGameReady={setIsGameReady}
             />}
-          {(targets?.length > 0 && isConnectedToNsp && isGameReady) && <AimBoard
+          {(targets?.length > 0 && isConnectedToNsp && isGameReady && !isGameDone) && <AimBoard
             lobbyNsp={lobbyNsp}
             targets={targets}
             setScore={setScore}
