@@ -25,7 +25,7 @@ describe('Score Board renders', () => {
   test('scoreboard renders with correct text', () => {
     render(
       <MemoryRouter>
-        <ScoreBoard player1Score={0} lobbyNsp={ioMock()} playerId='' />
+        <ScoreBoard player1Score={0} lobbyNsp={ioMock()} playerId='' isTimerDone={true} setIsGameDone={jest.fn()} />
       </MemoryRouter>,
     );
 
@@ -39,7 +39,7 @@ describe('Score Board renders', () => {
     const nspMock = ioMock();
     render(
       <MemoryRouter>
-        <ScoreBoard player1Score={0} lobbyNsp={nspMock} playerId='' />
+        <ScoreBoard player1Score={0} lobbyNsp={nspMock} playerId='' isTimerDone={true} setIsGameDone={jest.fn()} />
       </MemoryRouter>,
     );
 
