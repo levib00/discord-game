@@ -7,7 +7,7 @@ describe('countdown', () => {
   test('countdown renders', async () => {
     render(
       <MemoryRouter>
-        <Countdown setIsTimerDone={jest.fn()} />
+        <Countdown setIsTimerDone={jest.fn()} startNumber={5} timerShouldStart={true} />
       </MemoryRouter>,
     );
 
