@@ -64,7 +64,11 @@ const AimBoard = (props: IAimBoardProps) => {
 
   return (
   <div data-testid='aim-board' className='aim-board'>
-      {!isTimerDone && <Countdown setIsTimerDone={setIsTimerDone} />}
+      {!isTimerDone && <Countdown
+        setIsTimerDone={setIsTimerDone}
+        startNumber={5}
+        timerShouldStart={true}
+      />}
       {currentTargets?.length > 0 && currentTargets.slice(0, 3).map(
         (target, index) => <Target
         key={uuidv4()}
