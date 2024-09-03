@@ -2,23 +2,27 @@ import { useEffect, useState } from 'react';
 
 interface ICountdownProps {
   setIsTimerDone: React.Dispatch<React.SetStateAction<boolean>>
+  startNumber: number
+  timerShouldStart: boolean
 }
 
 const Countdown = (props: ICountdownProps) => {
-  const { setIsTimerDone } = props;
-  const [countdownSeconds, setCountdownSeconds] = useState(5);
+  const { setIsTimerDone, startNumber, timerShouldStart } = props;
+  const [countdownSeconds, setCountdownSeconds] = useState(startNumber);
 
   useEffect(() => {
-    let counter = 5;
-    const countdown = setInterval(() => {
-      counter -= 1;
-      setCountdownSeconds(counter);
-      if (!counter) {
-        clearInterval(countdown);
-        setIsTimerDone(true);
-      }
-    }, 1000);
-  }, []);
+    if (timerShouldStart) {
+      let counter = startNumber;
+      const countdown = setInterval(() => {
+        counter -= 1;
+        setCountdownSeconds(counter);
+        if (!counter) {
+          clearInterval(countdown);
+          setIsTimerDone(true);
+        }
+      }, 1000);
+    }
+  }, [timerShouldStart]);
 
   return (
     <div data-testid='countdown'>
