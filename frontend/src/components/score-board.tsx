@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { updateScores } from '../helpers/socket-callbacks';
+import Countdown from './countdown';
 
 interface IScoreBoard {
   player1Score: number
   lobbyNsp: any
   playerId: string
+  isTimerDone: boolean
+  setIsGameDone: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const ScoreBoard = (props: IScoreBoard) => {
-  const { lobbyNsp } = props;
+  const { lobbyNsp, setIsGameDone, isTimerDone } = props;
 
   const [player1Score, setPlayer1Score] = useState<number>(0);
   const [player2Score, setPlayer2Score] = useState<number>(0);
@@ -29,6 +32,13 @@ const ScoreBoard = (props: IScoreBoard) => {
       </div>
       <div>
         <div>Player 2: {player2Score}</div>
+      </div>
+      <div>
+      <Countdown
+        setIsTimerDone={setIsGameDone}
+        startNumber={60}
+        timerShouldStart={isTimerDone}
+      />
       </div>
     </div>
   );
