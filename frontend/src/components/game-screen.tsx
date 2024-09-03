@@ -33,7 +33,6 @@ const GameScreen = (props: IGameScreenProps) => {
     queryKey: ['lobbyCheck'],
     queryFn: async () => {
       const response = await checkLobbyExists(`http://localhost:8082/api/game/check-lobby/${lobbyId}`);
-      console.log(response);
       return response;
     },
   });
