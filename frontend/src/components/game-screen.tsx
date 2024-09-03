@@ -59,6 +59,8 @@ const GameScreen = (props: IGameScreenProps) => {
             player1Score={score}
             playerId={playerId}
             lobbyNsp={lobbyNsp}
+            isTimerDone={isTimerDone}
+            setIsGameDone={setIsGameDone}
           />}
           {(isConnectedToNsp && !isGameReady) && <>Waiting for opponent...</>}
           {((!isConnectedToNsp && !isGameReady) && (!isPendingLobbyCheck && !isPendingTargets))
