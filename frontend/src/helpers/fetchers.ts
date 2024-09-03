@@ -28,7 +28,10 @@ export const checkLobbyExists = async (url: string) => {
     if (data.status === 200) {
       return true;
     }
-    return false;
+    if (data.status === 404) {
+      return false;
+    }
+    return await data.json();
   } catch (error: any) {
     throw new Error(error);
   }
