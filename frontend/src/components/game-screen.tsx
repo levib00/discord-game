@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import AimBoard from './aim-board';
 import ScoreBoard from './score-board';
 import StartModal from './start-modal';
 import { checkLobbyExists, getTargets } from '../helpers/fetchers';
+import EndGame from './endgame';
 
 interface IGameScreenProps {
   isConnectedToNsp: boolean
@@ -25,6 +26,7 @@ const GameScreen = (props: IGameScreenProps) => {
   const [playerId, setPlayerId] = useState<string>('');
   const [isTimerDone, setIsTimerDone] = useState(false);
   const [isGameDone, setIsGameDone] = useState(false);
+  const [endScores, setEndScores] = useState();
   const { lobbyId } = useParams();
 
   const {
@@ -49,8 +51,24 @@ const GameScreen = (props: IGameScreenProps) => {
     retry: !!isLobbyExists,
   });
 
+  useEffect(() => {
+    if (isGameDone && lobbyNsp) {
+      lobbyNsp.emit('endGame');
+    }
+  }, [lobbyNsp, isGameDone]);
+
+  useEffect(() => {
+    if (lobbyNsp) {
+      lobbyNsp.on('endScores', (data: any) => { // TODO: fix any
+        setEndScores(data.scores);
+      });
+    }
+  }, [lobbyNsp]);
+
+  // TODO: untangle the mess that is this jsx
   return (
     <div data-testid='game-screen'>
+      {isGameDone ? <EndGame endScores={ endScores } /> : <>
       {(isPendingLobbyCheck) ? <>Loading...</> : <>
       { isLobbyExists || isLobbyError ? <>
         {isPendingTargets ? <>Loading...</> : <>
@@ -83,6 +101,8 @@ const GameScreen = (props: IGameScreenProps) => {
         }
       </> : <>This lobby does not exist.</>}
       </>}
+      </>
+      }
     </div>
   );
 };
