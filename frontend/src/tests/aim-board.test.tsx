@@ -13,7 +13,7 @@ const targets = [{
 describe('AimBoard renders', () => {
   const emitMock = jest.fn();
 
-  test('About renders with correct text', () => {
+  test('Aimboard renders correctly', () => {
     render(
       <MemoryRouter>
         <AimBoard isTimerDone={true} setIsTimerDone={jest.fn()} playerId={''} targets={targets} score={0} lobbyNsp={io()} setScore={jest.fn()}/>
