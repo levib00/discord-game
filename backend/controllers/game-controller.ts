@@ -65,6 +65,12 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
         ids: { player1Id, player2Id },
       });
     });
+
+    socket.on('endGame', () => {
+      lobby.emit('endScores', {
+        scores: { player1Score, player2Score },
+      });
+    });
   });
 
   res.json(`${link}`);
