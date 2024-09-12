@@ -79,6 +79,26 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
         scores: { player1Score: lobby.player1Score, player2Score: lobby.player2Score },
       });
     });
+
+    socket.on('playAgain', (data: string) => {
+      if (data === lobby.player1Id) {
+        lobby.player1PlayAgain = true;
+      } else if (data === lobby.player2Id) {
+        lobby.player2PlayAgain = true;
+      }
+      lobby.player1Score = 0;
+      lobby.player2Score = 0;
+
+      lobby.player1IsReady = false;
+      lobby.player2IsReady = false;
+
+      if (lobby.player1PlayAgain && lobby.player2PlayAgain) {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const id of lobby.sockets.keys()) {
+          socket.to(id).emit('playAgain');
+        }
+      }
+    });
   });
 
   res.json(`${link}`);
