@@ -107,8 +107,8 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
 export const checkIfLobbyExists = asyncHandler(async (req: Request, res: Response) => {
   // eslint-disable-next-line no-underscore-dangle
   if (socketio.io._nsps.has(`/${req.params.lobbyId}`)) {
-    res.send(200);
+    res.sendStatus(200);
   } else {
-    res.send(404);
+    res.sendStatus(404);
   }
 });
