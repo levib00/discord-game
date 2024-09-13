@@ -93,10 +93,7 @@ export const getChallengeLink = asyncHandler(async (_req: Request, res: Response
       lobby.player2IsReady = false;
 
       if (lobby.player1PlayAgain && lobby.player2PlayAgain) {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const id of lobby.sockets.keys()) {
-          socket.to(id).emit('playAgain');
-        }
+        lobby.emit('playAgain');
       }
     });
   });
