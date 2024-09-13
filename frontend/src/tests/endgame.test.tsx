@@ -11,7 +11,7 @@ describe('AimBoard renders', () => {
   test('EndScreen shows scores if they exist', () => {
     render(
       <MemoryRouter>
-        <EndGame endScores={mockScores} />
+        <EndGame lobbyNsp={undefined} setTriggerRefetch={jest.fn()} playerId='' endScores={mockScores} />
       </MemoryRouter>,
     );
 
@@ -24,7 +24,7 @@ describe('AimBoard renders', () => {
   test('does not show scores if it doesn\'t have them yet', () => {
     render(
       <MemoryRouter>
-        <EndGame endScores={undefined} />
+        <EndGame lobbyNsp={undefined} setTriggerRefetch={jest.fn()} playerId='' endScores={undefined} />
       </MemoryRouter>,
     );
 
