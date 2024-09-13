@@ -26,6 +26,7 @@ const GameScreen = (props: IGameScreenProps) => {
   const [playerId, setPlayerId] = useState<string>('');
   const [isTimerDone, setIsTimerDone] = useState(false);
   const [isGameDone, setIsGameDone] = useState(false);
+  const [triggerRefetch, setTriggerRefetch] = useState(false);
   const [endScores, setEndScores] = useState();
   const { lobbyId } = useParams();
 
@@ -40,7 +41,7 @@ const GameScreen = (props: IGameScreenProps) => {
   });
 
   const {
-    isPending: isPendingTargets, data: targets,
+    isPending: isPendingTargets, data: targets, refetch: refetchTargets,
   } = useQuery({
     queryKey: ['targets'],
     queryFn: async () => {
@@ -50,6 +51,16 @@ const GameScreen = (props: IGameScreenProps) => {
     enabled: !!isLobbyExists,
     retry: !!isLobbyExists,
   });
+
+  useEffect(() => {
+    if (triggerRefetch) {
+      refetchTargets();
+      setTriggerRefetch(false);
+      setIsTimerDone(false);
+      // setIsGameReady(true);
+      setIsGameDone(false);
+    }
+  }, [triggerRefetch]);
 
   useEffect(() => {
     if (isGameDone && lobbyNsp) {
@@ -68,7 +79,12 @@ const GameScreen = (props: IGameScreenProps) => {
   // TODO: untangle the mess that is this jsx
   return (
     <div data-testid='game-screen'>
-      {isGameDone ? <EndGame endScores={ endScores } /> : <>
+      {isGameDone ? <EndGame
+        endScores={ endScores }
+        lobbyNsp={ lobbyNsp }
+        setTriggerRefetch={setTriggerRefetch}
+        playerId={playerId}
+      /> : <>
       {(isPendingLobbyCheck) ? <>Loading...</> : <>
       { isLobbyExists || isLobbyError ? <>
         {isPendingTargets ? <>Loading...</> : <>
