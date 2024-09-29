@@ -1,6 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 
-const Nav = () => {
+interface INavProps {
+  lobbyNsp: any
+}
+
+const Nav = (props: INavProps) => {
+  const { lobbyNsp } = props;
   const navigate = useNavigate();
 
   const createChallengeLink = async (url: string) => {
@@ -22,6 +27,9 @@ const Nav = () => {
 
   const joinSocket = async () => {
     const uuid = await createChallengeLink('http://localhost:8082/api/game/link');
+    if (lobbyNsp?.connected) {
+      lobbyNsp.emit('leaveRoom');
+    }
     navigate(`/challenge/${await uuid}`);
     navigate(0);
   };
