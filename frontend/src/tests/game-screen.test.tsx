@@ -2,6 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { io } from 'socket.io-client';
 import GameScreen from '../components/game-screen';
 import * as fetchers from '../helpers/fetchers';
 
@@ -25,6 +26,8 @@ describe('GameScreen', () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <GameScreen
+            lobbyNsp={io()}
+            setLobbyNsp={jest.fn()}
             isGameReady={false}
             setIsGameReady={setIsGameReadyMock}
             isConnectedToNsp={false}
@@ -44,6 +47,8 @@ describe('GameScreen', () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <GameScreen
+            lobbyNsp={io()}
+            setLobbyNsp={jest.fn()}
             isGameReady={false}
             setIsGameReady={setIsGameReadyMock}
             isConnectedToNsp={true}
@@ -62,6 +67,8 @@ describe('GameScreen', () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <GameScreen
+            lobbyNsp={io()}
+            setLobbyNsp={jest.fn()}
             isGameReady={false}
             setIsGameReady={setIsGameReadyMock}
             isConnectedToNsp={true}
@@ -82,6 +89,8 @@ describe('GameScreen', () => {
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <GameScreen
+            lobbyNsp={io()}
+            setLobbyNsp={jest.fn()}
             isGameReady={true}
             setIsGameReady={setIsGameReadyMock}
             isConnectedToNsp={true}

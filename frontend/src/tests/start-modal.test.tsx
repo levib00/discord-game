@@ -27,6 +27,7 @@ describe('Start Modal renders', () => {
     render(
       <MemoryRouter>
         <StartModal
+          playerId=''
           setIsConnected={setIsConnected}
           setPlayerId={setPlayerId}
           lobbyNsp={io()}
@@ -47,6 +48,7 @@ describe('Start Modal renders', () => {
     render(
       <MemoryRouter>
         <StartModal
+          playerId=''
           setIsConnected={setIsConnected}
           setPlayerId={setPlayerId}
           lobbyNsp={mockSocket}
@@ -69,6 +71,7 @@ describe('Start Modal renders', () => {
     render(
       <MemoryRouter>
         <StartModal
+          playerId=''
           setIsConnected={setIsConnected}
           setPlayerId={setPlayerId}
           lobbyNsp={mockSocket}
