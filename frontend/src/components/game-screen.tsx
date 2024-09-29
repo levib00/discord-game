@@ -12,17 +12,20 @@ interface IGameScreenProps {
   setIsConnectedToNsp: React.Dispatch<React.SetStateAction<boolean>>
   isGameReady: boolean
   setIsGameReady: React.Dispatch<React.SetStateAction<boolean>>
+  lobbyNsp: any
+  setLobbyNsp: React.Dispatch<React.SetStateAction<any>>
 }
 
 const GameScreen = (props: IGameScreenProps) => {
   const {
-    isConnectedToNsp,
+    // isConnectedToNsp,
     setIsConnectedToNsp,
     isGameReady,
     setIsGameReady,
+    lobbyNsp,
+    setLobbyNsp,
   } = props;
   const [score, setScore] = useState(0);
-  const [lobbyNsp, setLobbyNsp] = useState<any>();
   const [playerId, setPlayerId] = useState<string>('');
   const [isTimerDone, setIsTimerDone] = useState(false);
   const [isGameDone, setIsGameDone] = useState(false);
@@ -57,7 +60,7 @@ const GameScreen = (props: IGameScreenProps) => {
       refetchTargets();
       setTriggerRefetch(false);
       setIsTimerDone(false);
-      // setIsGameReady(true);
+      setIsGameReady(true);
       setIsGameDone(false);
     }
   }, [triggerRefetch]);
@@ -88,23 +91,24 @@ const GameScreen = (props: IGameScreenProps) => {
       {(isPendingLobbyCheck) ? <>Loading...</> : <>
       { isLobbyExists || isLobbyError ? <>
         {isPendingTargets ? <>Loading...</> : <>
-          {(targets?.length > 0 && isConnectedToNsp && isGameReady) && <ScoreBoard
+          {(targets?.length > 0 && isGameReady) && <ScoreBoard
             player1Score={score}
             playerId={playerId}
             lobbyNsp={lobbyNsp}
             isTimerDone={isTimerDone}
             setIsGameDone={setIsGameDone}
           />}
-          {(isConnectedToNsp && !isGameReady) && <>Waiting for opponent...</>}
-          {((!isConnectedToNsp && !isGameReady) && (!isPendingLobbyCheck && !isPendingTargets))
+          {(playerId && !isGameReady) && <>Waiting for opponent...</>}
+          {((!playerId && !isGameReady) && (!isPendingLobbyCheck && !isPendingTargets))
             && <StartModal
+              playerId={playerId}
               lobbyNsp={lobbyNsp}
               setLobbyNsp={setLobbyNsp}
               setPlayerId={setPlayerId}
               setIsConnected={setIsConnectedToNsp}
               setIsGameReady={setIsGameReady}
             />}
-          {(targets?.length > 0 && isConnectedToNsp && isGameReady && !isGameDone) && <AimBoard
+          {(targets?.length > 0 && isGameReady && !isGameDone) && <AimBoard
             lobbyNsp={lobbyNsp}
             targets={targets}
             setScore={setScore}
