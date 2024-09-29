@@ -18,7 +18,6 @@ interface IGameScreenProps {
 
 const GameScreen = (props: IGameScreenProps) => {
   const {
-    // isConnectedToNsp,
     setIsConnectedToNsp,
     isGameReady,
     setIsGameReady,
