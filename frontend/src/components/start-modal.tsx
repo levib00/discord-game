@@ -5,7 +5,7 @@ import { sendReady } from '../helpers/socket-callbacks';
 
 interface IStartModalProps {
   setLobbyNsp: React.Dispatch<React.SetStateAction<any>>
-  lobbyNsp: ReturnType<typeof io>
+  lobbyNsp: ReturnType<typeof io> | undefined
   setPlayerId: React.Dispatch<React.SetStateAction<string>>
   setIsConnected: React.Dispatch<React.SetStateAction<boolean>>
   setIsGameReady: React.Dispatch<React.SetStateAction<boolean>>
