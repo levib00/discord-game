@@ -42,16 +42,13 @@ describe('Start Modal renders', () => {
   });
 
   test('Start modal ready button fires function', async () => {
-    const ENDPOINT = 'localhost:5000';
-    const mockSocket = io(ENDPOINT);
-
     render(
       <MemoryRouter>
         <StartModal
           playerId=''
           setIsConnected={setIsConnected}
           setPlayerId={setPlayerId}
-          lobbyNsp={mockSocket}
+          lobbyNsp={undefined}
           setLobbyNsp={setLobbyNspMock}
           setIsGameReady={jest.fn()}
           />
