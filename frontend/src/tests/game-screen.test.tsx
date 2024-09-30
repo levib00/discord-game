@@ -3,6 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { io } from 'socket.io-client';
+import userEvent from '@testing-library/user-event';
 import GameScreen from '../components/game-screen';
 import * as fetchers from '../helpers/fetchers';
 
@@ -78,7 +79,12 @@ describe('GameScreen', () => {
       </QueryClientProvider>,
     );
 
-    await waitFor(() => {
+    await waitFor(async () => {
+      const readyButton = screen.getByText('Ready!');
+      await userEvent.click(readyButton);
+    });
+
+    waitFor(() => {
       const waitingForOpponents = screen.getByText('Waiting for opponent...');
       expect(waitingForOpponents).toBeInTheDocument();
     });
