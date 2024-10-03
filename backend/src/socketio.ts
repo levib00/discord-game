@@ -88,6 +88,8 @@ io.on('connect', (socket: any) => { // TODO: handle player disconnecting and rec
     if (roomVariables[lobbyId].player1PlayAgain && roomVariables[lobbyId].player2PlayAgain) {
       roomVariables[lobbyId].player1Score = 0;
       roomVariables[lobbyId].player2Score = 0;
+      roomVariables[lobbyId].player1PlayAgain = false;
+      roomVariables[lobbyId].player2PlayAgain = false;
       socketio.io.to(lobbyId).emit('playAgain');
     }
   });
