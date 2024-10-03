@@ -11,7 +11,7 @@ export const getTargets = asyncHandler(async (_req: Request, res: Response) => {
     const coordsArray = [];
 
     const generateX = () => Math.floor(Math.random() * 1000);
-    const generateY = () => Math.floor(Math.random() * 850);
+    const generateY = () => Math.floor(Math.random() * 700);
 
     for (let i = 0; i < 600; i += 1) {
       const coords = {
