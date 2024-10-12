@@ -35,9 +35,11 @@ const Nav = (props: INavProps) => {
   };
 
   return (
-    <div>
-      <button onClick={() => joinSocket()}>Challenge A Friend!</button>
-    </div>
+    <>
+      <a className='challenge-link' onClick={() => joinSocket()}>Challenge A Friend!</a>
+      <h1 className='hero'>Aim Of The Game</h1>
+      <div></div>
+    </>
   );
 };
 
