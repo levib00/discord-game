@@ -43,7 +43,7 @@ const StartModal = (props: IStartModalProps) => {
   }, [lobbyNsp]);
 
   return (
-    <div>
+    <div className='start-modal'>
       <button onClick={readyButtonHandler}>Ready!</button>
     </div>
   );
