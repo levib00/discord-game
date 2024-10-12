@@ -32,6 +32,22 @@ const EndGame = (props: IEndGame) => {
     setHasPressedPlayAgain(true);
   };
 
+  const setEndMessage = (player1Score: number | undefined, player2Score: number | undefined) => {
+    if ((!player1Score && player1Score !== 0) || (!player2Score && player2Score !== 0)) {
+      return <>Loading...</>;
+    }
+    if (player1Score === player2Score) {
+      return <>Its a draw!</>;
+    }
+    if (player1Score > player2Score) {
+      return <>player 1 wins!</>;
+    }
+    if (player2Score > player1Score) {
+      return <>player 2 wins!</>;
+    }
+    return <>Something went wrong.</>;
+  };
+
   return (
     <div>
       <div>Game Over!</div>
@@ -40,6 +56,9 @@ const EndGame = (props: IEndGame) => {
       </div>
       <div>
         player 2: {endScores?.player2Score}
+      </div>
+      <div>
+        {setEndMessage(endScores?.player1Score, endScores?.player2Score)}
       </div>
       { hasPressedPlayAgain ? <div>
         Waiting for opponent...
