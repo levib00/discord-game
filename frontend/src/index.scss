@@ -1,0 +1,183 @@
+html, body, #root, .top-container {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  cursor: pointer;
+  font-size: 1.2rem;
+  padding: 8px;
+  font-weight: 700;
+  background-color: red;
+  border: none;
+  border-radius: 5px;
+}
+
+.top-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+body {
+  margin: 0;
+}
+
+header {
+  background-color: red;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  .hero {
+    margin: 10px auto;
+    position: relative;
+  }
+  .challenge-link {
+    position: absolute;
+    cursor: pointer;
+    padding: 22px 10px; /* //TODO: perhaps fix*/
+    font-size: 1.1rem;
+    font-weight: 700;
+    &:hover {
+      background-color: #fff;
+    }
+  }
+}
+
+.game-screen {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  .aim-board {
+    margin: auto;
+    width: 1200px;
+    height: 800px;
+    border: 1px white solid;
+  }
+
+  button {
+    border: transparent 1px solid;
+    &:hover {
+      border: white 1px solid;
+    }
+  }
+
+  .end-screen {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .play-again-button {
+      margin: 1px; 
+    }
+  }
+}
+
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.scoreboard {
+  display: flex;
+  justify-content: space-around;
+  width: 60%;
+  margin: 10px 0;
+}
+
+.score {
+  width: 300px;
+  font-size: 1.6rem;
+}
+
+.countdown {
+  font-size: 1.7rem;
+  font-weight: 700
+}
+
+.starting-countdown {
+  position: absolute;
+  top: calc(50% - 25px);
+  left: calc(50% - 25px);
+  background-color: grey;
+  border-radius: 50px;
+  width: 50px;
+  height: 50px;
+  -webkit-animation: breathing 1s ease-out infinite normal;
+  animation: breathing 1s ease-out infinite normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@-webkit-keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
+
+@keyframes breathing {
+  0% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  25% {
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+  }
+
+  60% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+
+  100% {
+    -webkit-transform: scale(0.9);
+    -ms-transform: scale(0.9);
+    transform: scale(0.9);
+  }
+}
