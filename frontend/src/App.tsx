@@ -38,6 +38,7 @@ function App() {
             </Routes>
           </main>
         </BrowserRouter>
+        <footer></footer>
       </div>
     </QueryClientProvider>
   );
