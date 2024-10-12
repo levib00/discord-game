@@ -43,8 +43,8 @@ const Target = (props: ITargetProps) => {
       {isTimerDone ? <div
         style={{
           position: 'absolute',
-          left: xCoords + 460,
-          top: yCoords + 60,
+          left: xCoords + 456,
+          top: yCoords + 197,
           backgroundColor: 'red',
           width: '60px',
           height: '60px',
@@ -55,8 +55,8 @@ const Target = (props: ITargetProps) => {
       /> : <div
         style={{
           position: 'absolute',
-          left: xCoords + 460,
-          top: yCoords + 60,
+          left: xCoords + 456,
+          top: yCoords + 197,
           backgroundColor: 'red',
           width: '60px',
           height: '60px',
