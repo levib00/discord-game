@@ -25,10 +25,8 @@ const Countdown = (props: ICountdownProps) => {
   }, [timerShouldStart]);
 
   return (
-    <div data-testid='countdown'>
-      <div>
-        {countdownSeconds}
-      </div>
+    <div data-testid='countdown' className={startNumber < 10 ? 'countdown starting-countdown' : 'countdown'}>
+      <div className='countdown-number'>{countdownSeconds}</div>
     </div>
   );
 };
