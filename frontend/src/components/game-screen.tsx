@@ -80,7 +80,7 @@ const GameScreen = (props: IGameScreenProps) => {
 
   // TODO: untangle the mess that is this jsx
   return (
-    <div data-testid='game-screen'>
+    <div data-testid='game-screen' className='game-screen'>
       {isGameDone ? <EndGame
         endScores={ endScores }
         lobbyNsp={ lobbyNsp }

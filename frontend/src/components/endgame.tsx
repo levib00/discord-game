@@ -49,7 +49,7 @@ const EndGame = (props: IEndGame) => {
   };
 
   return (
-    <div>
+    <div className='end-screen'>
       <div>Game Over!</div>
       <div>
         player 1: {endScores?.player1Score}
@@ -62,7 +62,7 @@ const EndGame = (props: IEndGame) => {
       </div>
       { hasPressedPlayAgain ? <div>
         Waiting for opponent...
-      </div> : <button onClick={playAgain}>
+      </div> : <button onClick={playAgain} className='play-again-button'>
         Play Again?
        </button>}
     </div>
