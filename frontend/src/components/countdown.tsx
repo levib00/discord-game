@@ -27,6 +27,7 @@ const Countdown = (props: ICountdownProps) => {
   return (
     <div data-testid='countdown' className={startNumber < 10 ? 'countdown starting-countdown' : 'countdown'}>
       <div className='countdown-number'>{countdownSeconds}</div>
+      <div className='countdown-background'></div>
     </div>
   );
 };
