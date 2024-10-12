@@ -26,19 +26,19 @@ const ScoreBoard = (props: IScoreBoard) => {
   }, [lobbyNsp]);
 
   return (
-    <div>
-      <div>
-        <div>Player 1: {player1Score}</div>
+    <div className='scoreboard'>
+      <div className='score'>
+        Player 1: {player1Score}
       </div>
       <div>
-        <div>Player 2: {player2Score}</div>
+        <Countdown
+          setIsTimerDone={setIsGameDone}
+          startNumber={60}
+          timerShouldStart={isTimerDone}
+        />
       </div>
-      <div>
-      <Countdown
-        setIsTimerDone={setIsGameDone}
-        startNumber={60}
-        timerShouldStart={isTimerDone}
-      />
+      <div className='score'>
+        Player 2: {player2Score}
       </div>
     </div>
   );
