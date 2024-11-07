@@ -21,18 +21,18 @@ const sql = neon(`postgresql://${PGUSER}:${PGPASSWORD}@${PGHOST}/${PGDATABASE}?s
 
 app.locals.sql = sql;
 
-const whitelist = ['http://localhost:5173', 'http://127.0.0.1:5173'];
+// const whitelist = ['http://localhost:5173', 'http://127.0.0.1:5173'];
 
-const corsOptions = {
-  origin(origin: any, callback: (err: Error | null, authorized: boolean) => void) {
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'), false);
-    }
-  },
-  credentials: true,
-};
+// const corsOptions = {
+//   origin(origin: any, callback: (err: Error | null, authorized: boolean) => void) {
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'), false);
+//     }
+//   },
+//   credentials: true,
+// };
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,7 +43,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors(corsOptions));
+app.use(cors());
 
 app.use('/api/', indexRouter);
 app.use('/api/users', usersRouter);
