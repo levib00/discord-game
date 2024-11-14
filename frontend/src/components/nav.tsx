@@ -26,7 +26,7 @@ const Nav = (props: INavProps) => {
   };
 
   const joinSocket = async () => {
-    const uuid = await createChallengeLink('http://localhost:8082/api/game/link');
+    const uuid = await createChallengeLink('https://aim-of-the-game.onrender.com/api/game/link');
     if (lobbyNsp?.connected) {
       lobbyNsp.emit('leaveRoom');
     }
