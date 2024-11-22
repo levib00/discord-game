@@ -5,7 +5,7 @@
   "homepage": "https://levib00.github.io/discord-game/",
   "scripts": {
     "dev": " cd frontend && vite",
-    "backend-build": "mkdir dist && mkdir dist/backend && cp -r backend/bin/ dist/backend && cd backend && tsc",
+    "backend-build": "cp -r backend/bin/ dist/backend && cd backend && tsc",
     "deploy": "gh-pages -d frontend/dist",
     "frontend-build": "cd frontend && tsc && vite build",
     "build": "npm run backend-build && npm run frontend-build && cd frontend",
