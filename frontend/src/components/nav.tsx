@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface INavProps {
   lobbyNsp: any
@@ -36,7 +36,10 @@ const Nav = (props: INavProps) => {
 
   return (
     <>
-      <a className='challenge-link' onClick={() => joinSocket()}>Challenge A Friend!</a>
+      <div className='challenge-link-container'>
+        <a className='challenge-link' onClick={() => joinSocket()}>Challenge A Friend!</a>
+        <Link className='challenge-link' to='/sp' >Play solo!</Link>
+      </div>
       <h1 className='hero'>Aim Of The Game</h1>
       <div></div>
     </>
