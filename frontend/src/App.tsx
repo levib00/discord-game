@@ -35,6 +35,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/challenge/:lobbyId' element={<GameScreen lobbyNsp={lobbyNsp} setLobbyNsp={setLobbyNsp} isGameReady={isGameReady} setIsGameReady={setIsGameReady} isConnectedToNsp={isConnectedToNsp} setIsConnectedToNsp={setIsConnectedToNsp} />} />
+              <Route path='/sp' element={<GameScreen lobbyNsp={lobbyNsp} setLobbyNsp={setLobbyNsp} isGameReady={isGameReady} setIsGameReady={setIsGameReady} isConnectedToNsp={isConnectedToNsp} setIsConnectedToNsp={setIsConnectedToNsp} />} />
+              <Route path='*' element={<Home />}/>
             </Routes>
           </main>
         </BrowserRouter>
