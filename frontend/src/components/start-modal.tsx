@@ -20,7 +20,7 @@ const StartModal = (props: IStartModalProps) => {
     setPlayerId,
     setIsGameReady,
   } = props;
-  const [lobbyCode] = useState(useParams().lobbyId);
+  const [lobbyCode] = useState(useParams().lobbyId || 'sp');
 
   const readyButtonHandler = async () => {
     if (lobbyNsp?.connected && !playerId) {
